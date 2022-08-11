@@ -33,7 +33,7 @@ public class TestIM {
     public static void main(String[] args) {
       //  testAlarmClusterByDingDingMarkDownNewStyle();
 //        testAlarmClusterByDingDingMarkDown();
-        testAlarmClusterByLark();
+     //   testAlarmClusterByLark();
 
     }
 

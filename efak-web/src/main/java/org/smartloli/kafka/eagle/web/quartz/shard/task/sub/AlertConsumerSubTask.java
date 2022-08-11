@@ -85,7 +85,8 @@ public class AlertConsumerSubTask extends Thread {
                         alarmMsg.setAlarmDate(CalendarUtils.getDate());
                         alarmMsg.setAlarmLevel(alarmConsumer.getAlarmLevel());
                         alarmMsg.setAlarmProject("Consumer");
-                        alarmMsg.setAlarmTimes("current(" + alarmConsumer.getAlarmTimes() + "), max(" + alarmConsumer.getAlarmMaxTimes() + ")");
+                        int alarmTimes = alarmConsumer.getAlarmTimes() + 1;
+                        alarmMsg.setAlarmTimes("当前报警次数(" + alarmTimes + "), 最大报警次数(" + alarmConsumer.getAlarmMaxTimes() + ")");
                     } catch (Exception e) {
                         LoggerUtils.print(this.getClass()).error("Alert message load common information has error, msg is ", e);
                     }
@@ -147,8 +148,8 @@ public class AlertConsumerSubTask extends Thread {
                 IMServiceImpl im = new IMServiceImpl();
                 im.sendPostMsgByWeChat(alarmMsg.toWeChatMarkDown(), alarmConfing.getAlarmUrl());
             } else if (alarmConfing.getAlarmType().equals(KConstants.AlarmType.LARK)) {
-                alarmMsg.setTitle("`EFAK - Alert Consumer Notice`\n");
-                alarmMsg.setAlarmContent("lag.overflow [ cluster(" + alarmConsumer.getCluster() + "), group(" + alarmConsumer.getGroup() + "), topic(" + alarmConsumer.getTopic() + "), current(" + lag + "), max(" + alarmConsumer.getLag() + ") ]");
+                alarmMsg.setTitle("`Kafka消费组报警信息`\n");
+                alarmMsg.setAlarmContent("lag.overflow [ cluster(" + alarmConsumer.getCluster() + "), group(" + alarmConsumer.getGroup() + "), topic(" + alarmConsumer.getTopic() + "), 当前积压(" + lag + "), 积压阈值(" + alarmConsumer.getLag() + ") ]");
                 alarmMsg.setAlarmStatus("PROBLEM");
                 IMServiceImpl im = new IMServiceImpl();
                 im.sendPostMsgByLark(alarmMsg.toMail(), alarmConfing.getAlarmUrl());
@@ -183,8 +184,8 @@ public class AlertConsumerSubTask extends Thread {
                 IMServiceImpl im = new IMServiceImpl();
                 im.sendPostMsgByWeChat(alarmMsg.toWeChatMarkDown(), alarmConfing.getAlarmUrl());
             } else if (alarmConfing.getAlarmType().equals(KConstants.AlarmType.LARK)) {
-                alarmMsg.setTitle("`EFAK - Alert Consumer Notice`\n");
-                alarmMsg.setAlarmContent("lag.normal [ cluster(" + alarmConsumer.getCluster() + "), group(" + alarmConsumer.getGroup() + "), topic(" + alarmConsumer.getTopic() + "), current(" + lag + "), max(" + alarmConsumer.getLag() + ") ]");
+                alarmMsg.setTitle("`Kafka消费组报警信息`\n");
+                alarmMsg.setAlarmContent("lag.normal [ cluster(" + alarmConsumer.getCluster() + "), group(" + alarmConsumer.getGroup() + "), topic(" + alarmConsumer.getTopic() + "), 当前积压(" + lag + "), 积压阈值(" + alarmConsumer.getLag() + ") ]");
                 alarmMsg.setAlarmStatus("NORMAL");
                 IMServiceImpl im = new IMServiceImpl();
                 im.sendPostMsgByLark(alarmMsg.toMail(), alarmConfing.getAlarmUrl());

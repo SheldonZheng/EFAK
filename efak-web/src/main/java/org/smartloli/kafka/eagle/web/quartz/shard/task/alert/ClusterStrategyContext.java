@@ -202,7 +202,8 @@ public class ClusterStrategyContext {
             alarmMsg.setAlarmLevel(cluster.getAlarmLevel());
             alarmMsg.setAlarmProject(cluster.getType());
             alarmMsg.setAlarmStatus("PROBLEM");
-            alarmMsg.setAlarmTimes("current(" + cluster.getAlarmTimes() + 1 + "), max(" + cluster.getAlarmMaxTimes() + ")");
+            int alarmTimes = cluster.getAlarmTimes() + 1;
+            alarmMsg.setAlarmTimes("当前报警次数(" + alarmTimes + "), 最大报警次数(" + cluster.getAlarmMaxTimes() + ")");
             IMServiceImpl im = new IMServiceImpl();
             im.sendPostMsgByLark(alarmMsg.toMail(), alarmConfing.getAlarmUrl());
         }
@@ -322,7 +323,8 @@ public class ClusterStrategyContext {
             alarmMsg.setAlarmLevel(cluster.getAlarmLevel());
             alarmMsg.setAlarmProject(cluster.getType());
             alarmMsg.setAlarmStatus("PROBLEM");
-            alarmMsg.setAlarmTimes("current(" + cluster.getAlarmTimes() + 1 + "), max(" + cluster.getAlarmMaxTimes() + ")");
+            int alarmTimes = cluster.getAlarmTimes() + 1;
+            alarmMsg.setAlarmTimes("当前报警次数(" + alarmTimes + "), 最大报警次数(" + cluster.getAlarmMaxTimes() + ")");
             IMServiceImpl im = new IMServiceImpl();
             im.sendPostMsgByLark(alarmMsg.toMail(), alarmConfing.getAlarmUrl());
         }
